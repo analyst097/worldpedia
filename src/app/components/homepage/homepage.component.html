@@ -1,7 +1,119 @@
+<ng-container *ngIf="isSearching" [ngTemplateOutlet]="loading"></ng-container>
+<ng-container *ngIf="!isFetching; else loading">
+  <div class="position-relative">
+    <div
+      id="search-bar"
+      class="w-75 d-flex position-absolute top-0 start-50 translate-middle shadow p-3 bg-white rounded-1"
+    >
+      <input
+        [(ngModel)]="searchText"
+        class="form-control rounded-1 border border-2"
+        type="search"
+        placeholder=""
+        (search)="onSearch()"
+      />
+      <button
+        mat-flat-button
+        color="primary"
+        class="ms-2 px-2"
+        (click)="onSearch()"
+      >
+        Search
+      </button>
+    </div>
+    <section id="content-section">
+      <ng-container *ngIf="countryList.length">
+        <div id="cards" class="d-flex flex-wrap justify-content-center">
+          <app-country-card
+            class="m-2"
+            (click)="showDialog(country, dialogTemplate)"
+            *ngFor="let country of countryList"
+            [country]="country"
+          ></app-country-card>
+        </div>
+      </ng-container>
+      <div class="d-flex justify-content-center my-3">
+        <button color="primary" mat-raised-button (click)="showMore()">
+          Show More
+        </button>
+      </div>
+    </section>
+  </div>
+</ng-container>
 
-<section id="top-section">
+<ng-template #loading>
+  <div class="d-flex">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</ng-template>
 
-</section>
-<section id="content-section">
-
-</section>
+<ng-template #dialogTemplate>
+  <div id="card-dialog">
+    <div mat-dialog-content>
+      <div class="container px-1">
+        <div class="row">
+          <div class="col">
+            <h3 class="fw-bold" mat-dialog-title>{{ clickedCountry?.name?.common }}</h3>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <img
+              class="dialog-card-img rounded-1"
+              [src]="clickedCountry?.flags?.png"
+              [alt]="'Flag of' + clickedCountry?.name?.common"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Capital
+          </div>
+          <div class="col-6 data-value text-muted">
+            {{ clickedCountry?.capital }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Continent
+          </div>
+          <div class="col-6 data-value text-muted">
+            {{ clickedCountry?.continents?.join(", ") | uppercase }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Currency
+          </div>
+          <div class="col-6 data-value text-muted">
+            {{ clickedCountry?.currencies! | currencyname }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Languages
+          </div>
+          <div class="col-6 data-value text-muted">
+            {{ clickedCountry?.languages! | languages }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Population
+          </div>
+          <div class="col-6 data-value text-muted">
+            {{ clickedCountry?.population }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-3 fw-bold data-title">
+            Timezone
+          </div>
+          <div class="col-6 data-value">
+            {{ clickedCountry?.timezones?.[0]}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,1 +1,351 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$worldpedia-primary: mat.define-palette(mat.$indigo-palette);
+$worldpedia-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$worldpedia-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$worldpedia-theme: mat.define-light-theme((
+  color: (
+    primary: $worldpedia-primary,
+    accent: $worldpedia-accent,
+    warn: $worldpedia-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($worldpedia-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$primary-color: #3f51b5;
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) { 
+  $content-width: 17rem;
+
+  #head-content{
+    padding: 3rem 2rem 4rem 2rem;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+
+    #headline{
+      margin-top: 1rem ;
+    }
+  }
+
+  .country-card {
+    width: $content-width;
+  }
+
+  #search-bar{
+    width: $content-width;
+  }
+  
+  #content-section {
+    padding: 1rem;
+
+    #cards{
+      margin-top: 3rem;
+    }
+  }
+  
+  .card-img{
+    width: 100%;
+  }
+  
+  #card-dialog{
+    
+  }
+
+  .card-img{
+    height: 8rem;
+    width: 14rem;
+  }
+
+  mat-card{
+      box-shadow: none !important;
+  }
+  
+  .p-10{
+    padding: 7rem 12rem;
+  }
+
+  .logo{
+    height: 3.5rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  $content-width: 20rem;
+
+  #head-content{
+    padding: 5rem 4rem ;
+    width: $content-width;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+
+    #headline{
+      margin-top: 1rem ;
+    }
+  }
+
+  .country-card {
+    width: $content-width;
+  }
+
+  #search-bar{
+    width: $content-width;
+  }
+  
+  #content-section {
+    padding: 1rem;
+
+    #cards{
+      margin-top: 3rem;
+    }
+  }
+  
+  .card-img{
+    width: 100%;
+  }
+  
+  #card-dialog{
+    
+  }
+
+  .card-img{
+    height: 8rem;
+    width: 14rem;
+  }
+
+  mat-card{
+      box-shadow: none !important;
+  }
+  
+  .p-10{
+    padding: 7rem 12rem;
+  }
+
+  .logo{
+    height: 3.5rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  $content-width: 17rem;
+
+  #head-content{
+    padding: 5rem 6rem;
+    width: 80%;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+
+    #headline{
+      margin-top: 1rem ;
+    }
+  }
+
+  .country-card {
+    width: $content-width;
+  }
+
+  #search-bar{
+    width: $content-width;
+  }
+  
+  #content-section {
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+
+    #cards{
+      margin-top: 3rem;
+    }
+  }
+  
+  .card-img{
+    width: 100%;
+  }
+  
+  #card-dialog{
+    
+  }
+
+  .card-img{
+    height: 8rem;
+    width: 14rem;
+  }
+
+  mat-card{
+      box-shadow: none !important;
+  }
+  
+  .p-10{
+    padding: 7rem 12rem;
+  }
+
+  .logo{
+    height: 3.5rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  $content-width: 17rem;
+
+  #head-content{
+    padding: 7rem 9rem;
+    width: 80%;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+
+    #headline{
+      margin-top: 1rem ;
+    }
+  }
+
+  .country-card {
+    width: $content-width;
+  }
+
+  #search-bar{
+    width: $content-width;
+  }
+  
+  #content-section {
+    width: 80%;
+    padding: 1rem;
+
+    #cards{
+      margin-top: 3rem;
+    }
+  }
+  
+  .card-img{
+    width: 100%;
+  }
+  
+  #card-dialog{
+    
+  }
+
+  .card-img{
+    height: 8rem;
+    width: 14rem;
+  }
+
+  mat-card{
+      box-shadow: none !important;
+  }
+  
+  .p-10{
+    padding: 7rem 12rem;
+  }
+
+  .logo{
+    height: 3.5rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  $content-width: 15rem;
+
+  #head-content{
+    padding: 5rem 8rem;
+    // width: 80%;
+    background-color: $primary-color;
+    font-size: 0.9rem;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+
+    #headline{
+      margin-top: 1rem ;
+    }
+  }
+
+  .country-card {
+    width: $content-width;
+  }
+
+  #search-bar{
+    width: $content-width;
+  }
+  
+  #content-section {
+    padding: 1rem;
+
+    #cards{
+      margin-top: 3rem;
+    }
+  }
+  
+  .card-img{
+    width: 100%;
+  }
+  
+  #card-dialog{
+    min-width: 30rem;
+
+    .dialog-card-img{
+      width: auto;
+      height: 8rem;
+    }
+  }
+
+  mat-card{
+      box-shadow: none !important;
+  }
+  
+  .p-10{
+    padding: 7rem 12rem;
+  }
+
+  .logo{
+    height: 3.5rem;
+  }
+}
+
+.data-title{
+  margin: .3rem 0;
+}

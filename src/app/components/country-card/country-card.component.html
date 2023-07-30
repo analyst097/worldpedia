@@ -1,0 +1,16 @@
+<div class="country-card p-3 border border-2 rounded-1">
+  <mat-card>
+    <img
+      class="card-img"
+      mat-card-image
+      [src]="country?.flags?.png"
+      [alt]="'Photo of ' + country?.name?.common"
+    />
+    <mat-card-content>
+      <p class="fw-bold">{{ country?.name?.common }}</p>
+      <p class="text-muted">
+        {{ country?.continents?.join(", ") | uppercase }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
