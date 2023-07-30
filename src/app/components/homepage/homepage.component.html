@@ -1,4 +1,3 @@
-<ng-container *ngIf="isSearching" [ngTemplateOutlet]="loading"></ng-container>
 <ng-container *ngIf="!isFetching; else loading">
   <div class="position-relative">
     <div
@@ -10,9 +9,10 @@
         class="form-control rounded-1 border border-2"
         type="search"
         placeholder=""
-        (search)="onSearch()"
+        (search)="onClickSearch()"
       />
       <button
+        [disabled]="!searchText || isSearching"
         mat-flat-button
         color="primary"
         class="ms-2 px-2"
@@ -22,7 +22,14 @@
       </button>
     </div>
     <section id="content-section">
-      <ng-container *ngIf="countryList.length">
+      <div *ngIf="errorMsg" class="error-msg text-danger mt-5">
+        {{ errorMsg }}
+      </div>
+      <div *ngIf="isSearching">
+        <ng-template [ngTemplateOutlet]="loading"></ng-template>
+      </div>
+
+      <ng-container *ngIf="countryList.length && !(isSearching || isFetching)">
         <div id="cards" class="d-flex flex-wrap justify-content-center">
           <app-country-card
             class="m-2"
@@ -32,7 +39,7 @@
           ></app-country-card>
         </div>
       </ng-container>
-      <div class="d-flex justify-content-center my-3">
+      <div *ngIf="!(isFetching || isSearching) && countryList.length" class="d-flex justify-content-center my-3">
         <button color="primary" mat-raised-button (click)="showMore()">
           Show More
         </button>
@@ -42,8 +49,8 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="d-flex">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center mt-4">
+    <mat-spinner></mat-spinner>
   </div>
 </ng-template>
 
@@ -53,7 +60,9 @@
       <div class="container px-1">
         <div class="row">
           <div class="col">
-            <h3 class="fw-bold" mat-dialog-title>{{ clickedCountry?.name?.common }}</h3>
+            <h3 class="fw-bold mb-2" mat-dialog-title>
+              {{ clickedCountry?.name?.common }}
+            </h3>
           </div>
         </div>
         <div class="row mb-3">
@@ -66,49 +75,37 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Capital
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Capital</div>
           <div class="col-6 data-value text-muted">
             {{ clickedCountry?.capital }}
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Continent
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Continent</div>
           <div class="col-6 data-value text-muted">
             {{ clickedCountry?.continents?.join(", ") | uppercase }}
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Currency
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Currency</div>
           <div class="col-6 data-value text-muted">
             {{ clickedCountry?.currencies! | currencyname }}
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Languages
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Languages</div>
           <div class="col-6 data-value text-muted">
             {{ clickedCountry?.languages! | languages }}
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Population
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Population</div>
           <div class="col-6 data-value text-muted">
             {{ clickedCountry?.population }}
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3 fw-bold data-title">
-            Timezone
-          </div>
+          <div class="col-6 col-lg-3 fw-bold data-title">Timezone</div>
           <div class="col-6 data-value">
             {{ clickedCountry?.timezones?.[0]}}
           </div>
